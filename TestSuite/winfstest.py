@@ -59,6 +59,18 @@ def uniqname():
         path = os.path.normpath(sys.argv[1]) + "\\"
     return path + "%08x" % random.randint(1, 2 ** 32)
 
+def uniqnameDrive1():
+    path = ""
+    if len(sys.argv)>0:
+        path = os.path.normpath(sys.argv[1]) + "\\"
+    return path + "%08x" % random.randint(1, 2 ** 32)
+
+def uniqnameDrive2():
+    path = ""
+    if len(sys.argv)>1:
+        path = os.path.normpath(sys.argv[2]) + "\\"
+    return path + "%08x" % random.randint(1, 2 ** 32)
+
 _fstest_exe = os.path.splitext(os.path.realpath(__file__))[0] + ".exe"
 class _fstest_task(object):
     def __init__(self, tsk, cmd, exp, expdiagvalue = ""):
@@ -137,7 +149,7 @@ def fstest(cmd):
     return task.err, task.res
 def expect(cmd, exp, expdiagvalue = ""):
     with _fstest_task(False, cmd, exp, expdiagvalue) as task:
-        pass                
+        pass
     return task.err, task.res
 def fstest_task(cmd):
     return _fstest_task(True, cmd, None)
